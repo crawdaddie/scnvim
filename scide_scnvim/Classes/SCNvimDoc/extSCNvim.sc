@@ -17,7 +17,7 @@
         SCDoc.renderer = SCNvimDocRenderer;
 
         urlString = SCNvimDoc.findHelpFile(text);
-		url = URI(urlString);
+		    url = URI(urlString);
         brokenAction = {
             "Sorry no help for %".format(text).postln;
             ^nil;

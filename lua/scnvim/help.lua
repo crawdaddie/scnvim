@@ -87,7 +87,9 @@ local function render_help_file(subject, on_done)
       args = args,
       hide = true,
     }
+
     local prg = config.documentation.cmd
+
     uv.spawn(
       prg,
       options,
@@ -207,6 +209,49 @@ function M.open_help_for(subject)
     M.on_open 'sclang not running'
     return
   end
+
+
+  if config.documentation.float then
+
+    local is_class = subject:sub(1, 1):match '%u'
+    if is_class then
+      render_help_file(subject, function(result)
+        utils.open_win(result)
+        win_id = vim.fn.win_getid()
+      end)
+
+      -- if is_class then
+      --   -- render_help_file(subject, function(result)
+      --   local cmd = string.format('SCNvim.getHelpUri("%s")', subject)
+      --   sclang.eval(cmd, function(input_path)
+      --     local basename = input_path:gsub('%.html%.scnvim', '')
+      --     local output_path = basename .. '.txt'
+      --     local args = get_render_args(input_path, output_path)
+      --     local options = {
+      --       args = args,
+      --       hide = true,
+      --     }
+      --
+      --     -- print('scnvim help - ' .. input_path .. ' ' .. output_path)
+      --
+      --     -- local prg = config.documentation.cmd
+      --     utils.open_win()
+      --     -- M.on_open(nil, result)
+      --   end)
+
+    else
+      -- sclang.eval('SCDoc.helpTargetDir', function(dir)
+      --   local results = find_methods(subject, dir)
+      --   local err = nil
+      --   if #results == 0 then
+      --     err = 'No results for ' .. tostring(subject)
+      --   end
+      --   M.on_select(err, results)
+      -- end)
+    end
+    return
+  end
+
 
   if not config.documentation.cmd then
     local cmd = string.format('HelpBrowser.openHelpFor("%s")', subject)

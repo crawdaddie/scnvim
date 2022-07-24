@@ -1,6 +1,6 @@
 SCNvim {
     classvar <>netAddr;
-    classvar <>currentPath;
+    classvar <currentPath;
     classvar <>port;
 
     *currentPath_ { arg newPath;

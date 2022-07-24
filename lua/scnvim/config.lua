@@ -51,6 +51,7 @@ local default = {
     horizontal = true,
     direction = 'top',
     keymaps = true,
+    float = true
   },
 
   --- table
