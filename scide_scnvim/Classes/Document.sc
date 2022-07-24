@@ -31,4 +31,8 @@ Document {
         var path = this.path;
         ^path !? { path.dirname }
     }
+
+    *open { arg path;
+      SCNvim.open(path)
+    }
 }

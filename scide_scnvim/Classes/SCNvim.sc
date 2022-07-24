@@ -3,6 +3,17 @@ SCNvim {
     classvar <>currentPath;
     classvar <>port;
 
+    *currentPath_ { arg newPath;
+        currentPath = newPath;
+        Document.current;
+        Mod.switchToMod(newPath);
+    }
+
+    *savePath { arg path;
+      SaveHooks.savePath(path);
+      Mod.reloadOnSave(path)
+    }
+
     *sendJSON {|data|
         var json;
         if (netAddr.isNil) {

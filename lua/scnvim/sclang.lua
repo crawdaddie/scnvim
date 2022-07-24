@@ -121,6 +121,8 @@ local function start_process()
     M.stdout,
     M.stderr,
   }
+
+  vim.fn.setenv("SC_PROJECT_DIR", vim.fn.expand('%:p:h'))
   options.cwd = vim.fn.expand '%:p:h'
   for _, arg in ipairs(config.sclang.args) do
     if arg:match '-i' then
@@ -142,6 +144,17 @@ function M.set_current_path()
     local curpath = vim.fn.expand '%:p'
     curpath = vim.fn.escape(curpath, [[ \]])
     curpath = string.format('SCNvim.currentPath = "%s"', curpath)
+    M.send(curpath, true)
+  end
+end
+
+--- reload an environment if associated buffer is saved
+---@local
+function M.reload_env()
+  if M.is_running() then
+    local curpath = vim.fn.expand '%:p'
+    curpath = vim.fn.escape(curpath, [[ \]])
+    curpath = string.format('SCNvim.savePath("%s")', curpath)
     M.send(curpath, true)
   end
 end

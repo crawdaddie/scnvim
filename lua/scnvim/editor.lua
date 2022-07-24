@@ -188,6 +188,12 @@ local function create_autocmds()
     pattern = { '*.scd', '*.sc', '*.quark' },
     callback = sclang.set_current_path,
   })
+  api.nvim_create_autocmd({ 'BufWritePost', 'FileWritePost' }, {
+    group = id,
+    desc = 'Reload environments connected to saved buffer',
+    pattern = { '*.scd' },
+    callback = sclang.reload_env,
+  })
   api.nvim_create_autocmd('FileType', {
     group = id,
     desc = 'Apply commands',
