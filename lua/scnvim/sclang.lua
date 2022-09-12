@@ -121,9 +121,11 @@ local function start_process()
     M.stdout,
     M.stderr,
   }
+  local rootdir = vim.fn.expand('%:p:h')
 
-  vim.fn.setenv("SC_PROJECT_DIR", vim.fn.expand('%:p:h'))
-  options.cwd = vim.fn.expand '%:p:h'
+  vim.fn.setenv("SC_PROJECT_DIR", rootdir)
+  -- vim.fn.setenv("SC_STARTUP_FILE", rootdir .. '/startup.scd')
+  options.cwd = rootdir
   for _, arg in ipairs(config.sclang.args) do
     if arg:match '-i' then
       error '[scnvim] invalid sclang argument "-i"'
@@ -214,7 +216,7 @@ function M.eval(expr, cb)
 end
 
 --- Start the sclang process.
-function M.start()
+function M.start(args)
   if M.is_running() then
     vim.notify('sclang already started', vim.log.levels.INFO)
     return

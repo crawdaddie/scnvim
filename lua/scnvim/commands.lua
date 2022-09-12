@@ -14,7 +14,11 @@ local function add_command(name, fn, desc)
 end
 
 return function()
-  add_command('SCNvimStart', sclang.start, 'Start the sclang interpreter')
+  vim.api.nvim_buf_create_user_command(0, 'SCNvimStart', sclang.start, {
+    -- nargs = "+",
+    desc = 'Start the sclang interpreter'
+  })
+
   add_command('SCNvimStop', sclang.stop, 'Stop the sclang interpreter')
   add_command('SCNvimRecompile', sclang.recompile, 'Recompile the sclang interpreter')
   add_command('SCNvimStatusLine', sclang.poll_server_status, 'Display the server status')
@@ -41,4 +45,5 @@ return function()
   add_command('SCNvimTags', function()
     print '[scnvim] SCNvimTags is deprecated. Please use SCNvimGenerateAssets.'
   end)
+  add_command('SCNvimRenderAllHelp', help.render_all)
 end

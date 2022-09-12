@@ -17,11 +17,12 @@ M.on_open = action.new(function()
   vim.opt_local.buftype = 'nofile'
   vim.opt_local.bufhidden = 'hide'
   vim.opt_local.swapfile = false
+
   local decorations = {
     'number',
     'relativenumber',
     'modeline',
-    'wrap',
+    -- 'wrap',
     'cursorline',
     'cursorcolumn',
     'foldenable',

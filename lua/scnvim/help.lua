@@ -13,6 +13,7 @@ local config = require 'scnvim.config'
 local _path = require 'scnvim.path'
 local utils = require 'scnvim.utils'
 local action = require 'scnvim.action'
+local help_picker = require 'scnvim.help-picker'
 
 local uv = vim.loop
 local api = vim.api
@@ -219,35 +220,8 @@ function M.open_help_for(subject)
         utils.open_win(result)
         win_id = vim.fn.win_getid()
       end)
-
-      -- if is_class then
-      --   -- render_help_file(subject, function(result)
-      --   local cmd = string.format('SCNvim.getHelpUri("%s")', subject)
-      --   sclang.eval(cmd, function(input_path)
-      --     local basename = input_path:gsub('%.html%.scnvim', '')
-      --     local output_path = basename .. '.txt'
-      --     local args = get_render_args(input_path, output_path)
-      --     local options = {
-      --       args = args,
-      --       hide = true,
-      --     }
-      --
-      --     -- print('scnvim help - ' .. input_path .. ' ' .. output_path)
-      --
-      --     -- local prg = config.documentation.cmd
-      --     utils.open_win()
-      --     -- M.on_open(nil, result)
-      --   end)
-
     else
-      -- sclang.eval('SCDoc.helpTargetDir', function(dir)
-      --   local results = find_methods(subject, dir)
-      --   local err = nil
-      --   if #results == 0 then
-      --     err = 'No results for ' .. tostring(subject)
-      --   end
-      --   M.on_select(err, results)
-      -- end)
+      help_picker.open_picker(subject)
     end
     return
   end

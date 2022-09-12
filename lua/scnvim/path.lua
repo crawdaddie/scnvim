@@ -96,7 +96,7 @@ end
 ---@param plugin_name Optional plugin name, use nil to get scnvim root dir.
 ---@return Absolute path to the plugin root dir.
 function M.get_plugin_root_dir(plugin_name)
-  plugin_name = plugin_name or 'scnvim'
+  plugin_name = plugin_name or 'scnvim-fork'
   local paths = vim.api.nvim_list_runtime_paths()
   for _, path in ipairs(paths) do
     local index = path:find(plugin_name)
@@ -104,7 +104,9 @@ function M.get_plugin_root_dir(plugin_name)
       return M.normalize(path)
     end
   end
-  error(string.format('Could not get root dir for %s', plugin_name))
+  return ("/Users/adam/.local/share/nvim/site/pack/packer/start/scnvim-fork")
+  -- return M.normalize("/Users/adam/projects/sc/scnvim-fork")
+  -- error(string.format('Could not get root dir for %s', plugin_name))
 end
 
 --- Get the SuperCollider user extension directory.
